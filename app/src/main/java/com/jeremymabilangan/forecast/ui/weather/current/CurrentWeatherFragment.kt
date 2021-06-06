@@ -2,13 +2,16 @@ package com.jeremymabilangan.forecast.ui.weather.current
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.jeremymabilangan.forecast.R
-import com.jeremymabilangan.forecast.data.ApixuWeatherApiService
+import com.jeremymabilangan.forecast.data.network.ApixuWeatherApiService
+import com.jeremymabilangan.forecast.data.network.ConnectivityInterceptorImpl
+import com.jeremymabilangan.forecast.data.network.WeatherNetworkDataSource
+import com.jeremymabilangan.forecast.data.network.WeatherNetworkDataSourceImpl
 import kotlinx.android.synthetic.main.current_weather_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -33,12 +36,15 @@ class CurrentWeatherFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(CurrentWeatherViewModel::class.java)
 
-        val apiService = ApixuWeatherApiService()
+        val apiService = ApixuWeatherApiService(ConnectivityInterceptorImpl(this.context!!))
+        val weatherNetworkDataSource = WeatherNetworkDataSourceImpl(apiService)
+
+        weatherNetworkDataSource.downloadedCurrentWeather.observe(viewLifecycleOwner, Observer {
+            currentTextView.text = it.toString()
+        })
 
         GlobalScope.launch(context = Dispatchers.Main) {
-            val currentWeatherResponse = apiService.getCurrentWeatherAsync("London").await()
-            Log.d(requireActivity().toString(), "hell no => $currentWeatherResponse")
-            currentTextView.text = "hi"
+            weatherNetworkDataSource.fetchCurrentWeather("London", "f")
         }
     }
 

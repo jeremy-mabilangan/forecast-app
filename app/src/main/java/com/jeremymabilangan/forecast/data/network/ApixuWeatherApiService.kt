@@ -1,7 +1,7 @@
-package com.jeremymabilangan.forecast.data
+package com.jeremymabilangan.forecast.data.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.jeremymabilangan.forecast.data.response.CurrentWeatherResponse
+import com.jeremymabilangan.forecast.data.network.response.CurrentWeatherResponse
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -17,17 +17,21 @@ interface ApixuWeatherApiService {
 
     @GET("current")
     fun getCurrentWeatherAsync(
-            @Query("query") location: String
+        @Query("query") location: String,
+        @Query("units") units: String
     ): Deferred<CurrentWeatherResponse>
 
     companion object {
-        operator fun invoke(): ApixuWeatherApiService {
+        operator fun invoke(
+            connectivityInterceptor: ConnectivityInterceptor
+        ): ApixuWeatherApiService {
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
 
             val okHttpClient = OkHttpClient.Builder()
                     .addInterceptor(interceptor)
                     .addInterceptor(AccessKeyInterceptor())
+                    .addInterceptor(connectivityInterceptor)
                     .build()
 
             return Retrofit.Builder()

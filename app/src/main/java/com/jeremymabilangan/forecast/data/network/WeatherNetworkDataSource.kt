@@ -1,13 +1,13 @@
 package com.jeremymabilangan.forecast.data.network
 
 import androidx.lifecycle.LiveData
-import com.jeremymabilangan.forecast.data.network.response.CurrentWeatherResponse
+import com.jeremymabilangan.forecast.data.response.CurrentWeatherResponse
 
 interface WeatherNetworkDataSource {
     val downloadedCurrentWeather: LiveData<CurrentWeatherResponse>
 
     suspend fun fetchCurrentWeather(
         location: String,
-        languageCode: String
+        type: String
     )
 }

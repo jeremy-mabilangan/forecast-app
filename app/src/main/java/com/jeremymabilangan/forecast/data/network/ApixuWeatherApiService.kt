@@ -1,7 +1,7 @@
 package com.jeremymabilangan.forecast.data.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.jeremymabilangan.forecast.data.network.response.CurrentWeatherResponse
+import com.jeremymabilangan.forecast.data.response.CurrentWeatherResponse
 import kotlinx.coroutines.Deferred
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

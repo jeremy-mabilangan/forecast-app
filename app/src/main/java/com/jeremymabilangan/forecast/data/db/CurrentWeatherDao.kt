@@ -8,6 +8,7 @@ import androidx.room.Query
 import com.jeremymabilangan.forecast.data.db.entity.CURRENT_WEATHER_ID
 import com.jeremymabilangan.forecast.data.db.entity.CurrentWeatherEntry
 import com.jeremymabilangan.forecast.data.db.unitlocalized.current.ImpMetCurrentWeatherEnter
+import com.jeremymabilangan.forecast.data.db.unitlocalized.current.UnitSpecificCurrentWeatherEntry
 
 @Dao
 interface CurrentWeatherDao {

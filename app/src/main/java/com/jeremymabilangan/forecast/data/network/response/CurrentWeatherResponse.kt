@@ -5,7 +5,6 @@ import com.jeremymabilangan.forecast.data.db.entity.CurrentWeatherEntry
 import com.jeremymabilangan.forecast.data.db.entity.Location
 import com.jeremymabilangan.forecast.data.db.entity.Request
 
-
 data class CurrentWeatherResponse(
     @SerializedName("current")
     val currentWeatherEntry: CurrentWeatherEntry,

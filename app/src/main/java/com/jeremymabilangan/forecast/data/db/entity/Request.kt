@@ -1,7 +1,4 @@
-package com.jeremymabilangan.forecast.data.response
-
-
-import com.google.gson.annotations.SerializedName
+package com.jeremymabilangan.forecast.data.db.entity
 
 data class Request(
     val language: String,

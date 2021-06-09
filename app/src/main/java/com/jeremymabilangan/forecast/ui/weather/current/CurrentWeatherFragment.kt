@@ -43,9 +43,9 @@ class CurrentWeatherFragment : Fragment() {
             currentTextView.text = it.toString()
         })
 
-        GlobalScope.launch(context = Dispatchers.Main) {
-            weatherNetworkDataSource.fetchCurrentWeather("London", "f")
-        }
+//        GlobalScope.launch(context = Dispatchers.Main) {
+//            weatherNetworkDataSource.fetchCurrentWeather("London", "f")
+//        }
     }
 
 }
